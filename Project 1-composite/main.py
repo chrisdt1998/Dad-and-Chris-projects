@@ -1,6 +1,7 @@
 import csv
 
-with open('eggs.csv', newline='') as csvfile:
-     spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-     for row in spamreader:
-         print(', '.join(row))
+with open('Compositing Data.csv', newline='') as csvfile:
+	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+	next(reader)
+	for row in reader:
+		print(row[3])
