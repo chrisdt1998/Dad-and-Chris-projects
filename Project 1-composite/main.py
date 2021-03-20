@@ -4,7 +4,8 @@ borehole = []
 from_arr = []
 to_arr = []
 au = []
-
+cmg =[] #au x width
+width_arr = [] #to minus from
 with open('Compositing Data.csv', newline='') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
 	next(reader)
@@ -13,6 +14,11 @@ with open('Compositing Data.csv', newline='') as csvfile:
 		from_arr.append(float(row[1]))
 		to_arr.append(float(row[2]))
 		au.append(float(row[3]))
+		width_arr.append(float(to_arr-from_arr))
+		cmg.append(float(width_arr*au)
+
+print(width_arr)
+print(cmg)
 
 total = 0
 average = []
