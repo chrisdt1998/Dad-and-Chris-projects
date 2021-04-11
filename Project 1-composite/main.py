@@ -22,10 +22,12 @@ cmg = width*au
 
 # print(width, cmg)
 
-
+#initialising arrays and variables
 cmg_total = 0
+cmg_total_arr = []
 average = []
 width_total = 0
+width_total_arr= []
 min_value = 1
 temp_cmg_total = 0
 temp_width_total = 0
@@ -34,12 +36,13 @@ from_arr_ave = []
 to_arr_ave = []
 ave_found = False
 
-for i in range(1, len(borehole)):
-	if borehole[i - 1] == borehole[i] and from_arr[i] == to_arr[i - 1]:
-		if cmg[i] >= min_value:
-			if width_total == 0:
-				start_i = i
-				if cmg[i - 1] >= min_value:
+# Main for loop
+for i in range(1, len(borehole)): 
+	if borehole[i - 1] == borehole[i] and from_arr[i] == to_arr[i - 1]:  # checking same hole and there are no gaps between sample current FROM same as previsous TO
+		if au[i] >= min_value: # check for minimum Au
+			if width_total == 0: # Is this the first over the minimum in this average?
+				start_i = i # set start counter
+				if au[i - 1] >= min_value: # checked is previous sample is also over the threshold.
 					start_i = i - 1
 					cmg_total += cmg[i - 1]
 					width_total += width[i - 1]
@@ -47,6 +50,7 @@ for i in range(1, len(borehole)):
 			cmg_total += cmg[i]
 		elif width_total > 0:
 			j = i + 1
+			#
 			temp_cmg_total += cmg[j - 1]
 			temp_width_total += width[j - 1]
 			while j < len(borehole) and borehole[j - 1] == borehole[j] and from_arr[j] == to_arr[j - 1]:
@@ -66,9 +70,11 @@ for i in range(1, len(borehole)):
 				average.append(cmg_total/width_total)
 				borehole_ave.append(borehole[start_i])
 				from_arr_ave.append(from_arr[start_i])
-				to_arr_ave.append(to_arr[i])
-				width_total = 0
-				cmg_total = 0
+				to_arr_ave.append(to_arr[i-1])
+				width_total_arr.append(width_total)
+				cmg_total_arr.append(cmg_total)
+				width_total=0
+				cmg_total=0
 			ave_found = False
 			temp_cmg_total = 0
 			temp_width_total = 0
@@ -77,13 +83,15 @@ for i in range(1, len(borehole)):
 		average.append(cmg_total/width_total)
 		borehole_ave.append(borehole[start_i])
 		from_arr_ave.append(from_arr[start_i])
-		to_arr_ave.append(to_arr[i])
-		width_total = 0
-		cmg_total = 0
+		to_arr_ave.append(to_arr[i-1])
+		width_total_arr.append(width_total)
+		cmg_total_arr.append(cmg_total)
+		width_total=0
+		cmg_total=0
 
 
 for i in range(len(borehole_ave)):
-	print(borehole_ave[i], from_arr_ave[i], to_arr_ave[i], average[i])
+	print(borehole_ave[i], from_arr_ave[i], to_arr_ave[i], average[i], width_total_arr[i],cmg_total_arr[i])
 
 print(len(borehole_ave))
 
